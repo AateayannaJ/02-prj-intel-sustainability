@@ -1,1 +1,234 @@
-/* Add your CSS here */
+/* ==========================================================================
+1. GLOBAL STYLES & VARIABLES
+========================================================================== */
+:root {
+  --bg-dark: #070b12;        /* Deep, tech-black/navy hybrid representing silicon */
+  --bg-card: #0f172a;        /* Sleek dark slate for card contrast */
+  --intel-blue: #0068b5;     /* Classic Intel Blue brand color */
+  --cyber-blue: #00ccff;     /* Vibrant, glowing cyan for interactive highlights */
+  --eco-green: #00ff88;      /* Electric green representing hydro-energy & sustainability */
+  --text-main: #f8fafc;      /* Crisp off-white for structural headings */
+  --text-muted: #94a3b8;     /* Clean, readable slate-gray for descriptions */
+  --card-border: #1e293b;    /* Subdued border color for structural containment */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+2. HERO HEADER SECTION
+========================================================================== */
+.hero-header {
+  position: relative;
+  background: linear-gradient(135deg, #070b12 30%, #001b3a 100%);
+  padding: 80px 20px;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  /* Glowing gradient border representing electricity flowing through water */
+  border-image: linear-gradient(to right, var(--intel-blue), var(--cyber-blue), var(--eco-green), var(--intel-blue)) 1;
+}
+
+.hero-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.intel-logo {
+  width: 130px;
+  height: auto;
+  margin-bottom: 24px;
+  /* Soft cyan drop shadow to mimic a microchip power glow */
+  filter: drop-shadow(0 0 12px rgba(0, 204, 255, 0.45));
+}
+
+.hero-header h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  /* Beautiful color gradient representing tech transitioning to sustainable green */
+  background: linear-gradient(to right, var(--text-main) 20%, var(--cyber-blue) 60%, var(--eco-green) 100%);
+  /* Standard background-clip for broader compatibility, with vendor prefix fallback */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-header p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+3. TIMELINE SECTION (FLEXBOX BASE)
+========================================================================== */
+.timeline-section {
+  display: flex;
+  flex-direction: column; /* Mobile-first layout: cards stack vertically */
+  gap: 40px;              /* Ample vertical spacing to resolve "run-on" feeling */
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+4. MILESTONE CARDS (INTERACTIVE & AESTHETICS)
+========================================================================== */
+.timeline-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;              /* Tight, deliberate spacing between milestones elements */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  /* Smooth transitions for high-fidelity hovering states (LevelUp Transforms) */
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.45s ease,
+              box-shadow 0.45s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.card-year {
+  font-size: 2.2rem;
+  font-weight: 900;          /* Bold typography */
+  font-style: italic;        /* Italic typography for forward momentum */
+  color: var(--cyber-blue);   /* Standard highlighting color */
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* Alternating color design to improve logical visual flow */
+.timeline-card:nth-child(even) .card-year {
+  color: var(--eco-green);   /* Environmentally conscious alternate highlight */
+}
+
+.card-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;         /* Clean scaling with zero distortion */
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: grayscale(15%) brightness(95%);
+}
+
+/* LevelUp Transforms: Cards float upward and emit a colored, hydraulic light glow */
+.timeline-card:hover {
+  transform: translateY(-8px) scale(1.01);
+  border-color: var(--cyber-blue);
+  box-shadow: 0 20px 40px rgba(0, 204, 255, 0.25);
+}
+
+.timeline-card:nth-child(even):hover {
+  border-color: var(--eco-green);
+  box-shadow: 0 20px 40px rgba(0, 255, 136, 0.2);
+}
+
+/* Zooming in the image on card hover for enhanced depth */
+.timeline-card:hover .card-image {
+  transform: scale(1.02);
+  filter: grayscale(0%) brightness(105%);
+}
+
+/* Interactive Cards: Sub-paragraphs are hidden by default and slide open */
+.card-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  /* Smooth transition using cubic-bezier for snappy, hydraulic action */
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease,
+              margin-top 0.4s ease;
+}
+
+.timeline-card:hover .card-details {
+  max-height: 180px;         /* Generous maximum layout height to prevent text clips */
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.card-details p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Designing the scroll instruction bar */
+.timeline-instruction {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-bottom: 50px;
+  letter-spacing: 0.5px;
+}
+
+.timeline-instruction span {
+  color: var(--eco-green);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+5. RESPONSIVE DESIGN (DESKTOP GRID & SCROLL-SNAP)
+========================================================================= */
+@media (min-width: 768px) {
+  .timeline-section {
+    flex-direction: row;     /* Flattens the stack into a horizontal runway layout */
+    overflow-x: auto;        /* Enforces interactive horizontal navigation on desktop */
+    padding: 80px 40px;
+    gap: 32px;
+    
+    /* LevelUp Extra Credit: Smooth-motion Scroll Snapping */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .timeline-card {
+    min-width: 360px;        /* Forces strict layout containment without squishing */
+    max-width: 360px;
+    
+    /* LevelUp Extra Credit: Snaps directly to center of layout bounds */
+    scroll-snap-align: center;
+  }
+
+  /* Clean, custom webkit scrollbar styled like a glowing fluid conduit */
+  .timeline-section::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .timeline-section::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+  }
+
+  .timeline-section::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, var(--intel-blue), var(--cyber-blue), var(--eco-green), var(--intel-blue));
+    border-radius: 5px;
+  }
+}
